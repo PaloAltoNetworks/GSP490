@@ -21,6 +21,11 @@ kind: Deployment
 metadata:
   name: redis-master
 spec:
+  selector:
+    matchLabels:
+      app: redis
+      role: master
+      tier: backend
   replicas: 1
   template:
     metadata:
@@ -61,6 +66,11 @@ kind: Deployment
 metadata:
   name: redis-slave
 spec:
+  selector:
+    matchLabels:
+      app: redis
+      role: slave
+      tier: backend
   replicas: 2
   template:
     metadata:
@@ -111,6 +121,10 @@ kind: Deployment
 metadata:
   name: frontend
 spec:
+  selector:
+    matchLabels:
+      app: guestbook
+      tier: frontend
   replicas: 3
   template:
     metadata:
