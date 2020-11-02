@@ -7,7 +7,6 @@ metadata:
     tier: backend
     role: master
 spec:
-  #type: LoadBalancer
   ports:
   - port: 6379
     targetPort: 6379
@@ -16,7 +15,7 @@ spec:
     tier: backend
     role: master
 ---
-apiVersion: apps/v1
+apiVersion: apps/v1 #  for k8s versions before 1.9.0 use apps/v1beta2  and before 1.8.0 use extensions/v1beta1
 kind: Deployment
 metadata:
   name: redis-master
@@ -53,7 +52,6 @@ metadata:
     tier: backend
     role: slave
 spec:
-  #type: LoadBalancer
   ports:
   - port: 6379
   selector:
@@ -61,7 +59,7 @@ spec:
     tier: backend
     role: slave
 ---
-apiVersion: apps/v1
+apiVersion: apps/v1 #  for k8s versions before 1.9.0 use apps/v1beta2  and before 1.8.0 use extensions/v1beta1
 kind: Deployment
 metadata:
   name: redis-slave
@@ -107,6 +105,8 @@ metadata:
     app: guestbook
     tier: frontend
 spec:
+  # comment or delete the following line if you want to use a LoadBalancer
+  #type: NodePort 
   # if your cluster supports it, uncomment the following to automatically create
   # an external load-balanced IP for the frontend service.
   type: LoadBalancer
@@ -116,7 +116,7 @@ spec:
     app: guestbook
     tier: frontend
 ---
-apiVersion: apps/v1
+apiVersion: apps/v1 #  for k8s versions before 1.9.0 use apps/v1beta2  and before 1.8.0 use extensions/v1beta1
 kind: Deployment
 metadata:
   name: frontend
